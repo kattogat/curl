@@ -34,10 +34,24 @@ fclose($fp);
 $content = file_get_contents($fileName);
 
 
-
 $naked = strip_tags($content);
-//$blank = explode(" ", $naked);
+$words = [
+  "jag",
+  "HTML",
+  "Bok"
+];
+$wordsTwo = [
+  "är",
+  "CSS"
+];
 
-echo "Det finns " . substr_count($naked, "jag") . " jag i texten." . "<br>";
-echo "Det finns " . substr_count($naked, "HTML") . " HTML i texten." . "<br>";
-echo "Det finns " . substr_count($naked, "Bok") . " bok i texten." . "<br>";
+function countWords($text, $words) {
+  foreach ($words as $word) {
+    
+      $count = substr_count($text, $word);
+      echo "Det finns " . $count . " $word i texten." . "<br>";
+    }
+};
+
+countWords($naked, $words);
+countWords($naked, $wordsTwo);
