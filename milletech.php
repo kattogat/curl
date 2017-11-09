@@ -81,7 +81,7 @@
         $sql = "INSERT INTO address (customer_id, customer_address_id, email, firstname, lastname, postcode, street, 
         city, telephone, country_id, address_type, company, country, existing_id)
         VALUES(:customer_id, :customer_address_id, :email, :firstname, :lastname, :postcode, :street, 
-        :city, :telephone, :country_id, :address_type, :company, :country, ':existing_id')";
+        :city, :telephone, :country_id, :address_type, :company, :country, :existing_id)";
         $intoDb = $pdo->prepare($sql);
         $intoDb->execute (array(':customer_id' => $toExisting_id, ':customer_address_id' => $toCustumer_address_id, ':email' => $toEmail_adress, ':firstname' => $toFirstname_adress, ':lastname' => $toLastname_adress, ':postcode' => $toPostcode, ':street' => $toStreet, 
         ':city' => $toCity, ':telephone' => $toTel, ':country_id' => $toContry_id, ':address_type' => $toAdress_type, ':company' => $toCompany, ':country' => $toContry, ':existing_id' => $toAddress_id)); 
