@@ -70,19 +70,27 @@
         $toAddress_id = $row["address"]["id"];
 
 
-        $sql = "INSERT INTO user (email, firstname, lastname, gender, customer_activated, group_id, customer_company, 
-        default_billing, default_shipping, is_active, created_at, updated_at, customer_invoice_email, customer_extra_text, customer_due_date_period, existing_id)
-        VALUES(:email, :firstname, :lastname, :gender, :customer_activated, :group_id, :customer_company, 
-        :default_billing, :default_shipping, :is_active, :created_at, :updated_at, :customer_invoice_email, :customer_extra_text, :customer_due_date_period, :existing_id)";
-        $intoDb = $pdo->prepare($sql);
-        $intoDb->execute (array(':email' => $toEmail, ':firstname' => $toFirstname, ':lastname' => $toLastname, ':gender' => $toGender, ':customer_activated' => $toCustumer_activated, ':group_id' => $toGroup_id, ':customer_company' => $toCustumer_company, 
-        ':default_billing' => $toDefault_billing, ':default_shipping' => $toDefault_shipping, ':is_active' => $toIs_active, ':created_at' => $toCreated_at, ':updated_at' => $toUpdated_at, ':customer_invoice_email' => $toCustumer_inoice_email, ':customer_extra_text' => $toCustumer_extra_text, ':customer_due_date_period' => $toCustumer_due_date, ':existing_id' => $toExisting_id)); 
-    
-        $sql = "INSERT INTO address (customer_id, customer_address_id, email, firstname, lastname, postcode, street, 
-        city, telephone, country_id, address_type, company, country, existing_id)
-        VALUES(:customer_id, :customer_address_id, :email, :firstname, :lastname, :postcode, :street, 
-        :city, :telephone, :country_id, :address_type, :company, :country, :existing_id)";
-        $intoDb = $pdo->prepare($sql);
-        $intoDb->execute (array(':customer_id' => $toExisting_id, ':customer_address_id' => $toCustumer_address_id, ':email' => $toEmail_adress, ':firstname' => $toFirstname_adress, ':lastname' => $toLastname_adress, ':postcode' => $toPostcode, ':street' => $toStreet, 
-        ':city' => $toCity, ':telephone' => $toTel, ':country_id' => $toContry_id, ':address_type' => $toAdress_type, ':company' => $toCompany, ':country' => $toContry, ':existing_id' => $toAddress_id)); 
+        $sql = "SELECT existing_id FROM user WHERE existing_id = :existing_id";
+		$checkThing = $pdo->prepare($sql);
+		$checkThing->execute (array(':existing_id' => $toExisting_id)); 
+        $check = $checkThing->fetch(PDO::FETCH_ASSOC);
+        
+
+        if ($check == NULL) {
+            $sql = "INSERT INTO user (email, firstname, lastname, gender, customer_activated, group_id, customer_company, 
+            default_billing, default_shipping, is_active, created_at, updated_at, customer_invoice_email, customer_extra_text, customer_due_date_period, existing_id)
+            VALUES(:email, :firstname, :lastname, :gender, :customer_activated, :group_id, :customer_company, 
+            :default_billing, :default_shipping, :is_active, :created_at, :updated_at, :customer_invoice_email, :customer_extra_text, :customer_due_date_period, :existing_id)";
+            $intoDb = $pdo->prepare($sql);
+            $intoDb->execute (array(':email' => $toEmail, ':firstname' => $toFirstname, ':lastname' => $toLastname, ':gender' => $toGender, ':customer_activated' => $toCustumer_activated, ':group_id' => $toGroup_id, ':customer_company' => $toCustumer_company, 
+            ':default_billing' => $toDefault_billing, ':default_shipping' => $toDefault_shipping, ':is_active' => $toIs_active, ':created_at' => $toCreated_at, ':updated_at' => $toUpdated_at, ':customer_invoice_email' => $toCustumer_inoice_email, ':customer_extra_text' => $toCustumer_extra_text, ':customer_due_date_period' => $toCustumer_due_date, ':existing_id' => $toExisting_id)); 
+        
+            $sql = "INSERT INTO address (customer_id, customer_address_id, email, firstname, lastname, postcode, street, 
+            city, telephone, country_id, address_type, company, country, existing_id)
+            VALUES(:customer_id, :customer_address_id, :email, :firstname, :lastname, :postcode, :street, 
+            :city, :telephone, :country_id, :address_type, :company, :country, :existing_id)";
+            $intoDb = $pdo->prepare($sql);
+            $intoDb->execute (array(':customer_id' => $toExisting_id, ':customer_address_id' => $toCustumer_address_id, ':email' => $toEmail_adress, ':firstname' => $toFirstname_adress, ':lastname' => $toLastname_adress, ':postcode' => $toPostcode, ':street' => $toStreet, 
+            ':city' => $toCity, ':telephone' => $toTel, ':country_id' => $toContry_id, ':address_type' => $toAdress_type, ':company' => $toCompany, ':country' => $toContry, ':existing_id' => $toAddress_id)); 
+        }
     }
