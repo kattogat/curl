@@ -17,4 +17,4 @@
     $intoDb = $pdo->prepare($sql);
     $intoDb->execute (array(':nameuo' => $nam, ':animaluo' => $ani)); 
 
-?>
+//Lägg til cURL!!!!!!!!!!!!!!!!!!!!!!!!!!
